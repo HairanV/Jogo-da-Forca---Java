@@ -1,15 +1,53 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import model.Jogo;
+import model.Jogador;
+import repository.LeitorPalavras;
+import view.InterfaceCLI;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+
+    public static void main(String[] args) {
+
+        String caminhoArquivo = "src/palavras_jogo_forca.txt";
+
+        InterfaceCLI ui = new InterfaceCLI();
+        LeitorPalavras leitor = new LeitorPalavras(caminhoArquivo);
+
+        ui.exibirBoasVindas();
+
+        String nome = ui.pedirNomeJogador();
+        Jogador jogador = new Jogador(nome);
+
+        boolean continuarJogando = true;
+
+        while (continuarJogando) {
+
+            String palavra = leitor.sortearPalavra();
+            Jogo jogo = new Jogo(palavra, jogador);
+
+            while (!jogo.isJogoEncerrado()) {
+                ui.exibirEstadoJogo(jogo);
+
+                char letra = ui.pedirLetra();
+
+                if (jogo.letraJaTentada(letra)) {
+                    ui.exibirLetraJaTentada(letra);
+                    continue;
+                }
+
+                boolean acertou = jogo.tentarLetra(letra);
+                ui.exibirFeedbackLetra(letra, acertou);
+            }
+
+            if (jogo.verificarVitoria()) {
+                ui.exibirVitoria(jogo);
+            } else {
+                ui.exibirDerrota(jogo);
+            }
+
+            continuarJogando = ui.perguntarNovoJogo();
         }
+
+        ui.exibirEncerramento();
+        ui.fechar();
     }
 }

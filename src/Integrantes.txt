@@ -1,0 +1,14 @@
+INTEGRANTES DA EQUIPE
+
+Disciplina: 36811 – Modelagem e Prog. De Sistemas Computacionais
+Curso: Engenharia da Informação — UNOESC Chapecó
+Professor: Álvaro Gianni Pagliari
+Data de Entrega: 16/06/2026
+
+Membros:
+1. Dirceu José Frare
+2. Hairan Vinicius Estacio
+3. Nycolas Bertazi Demetrio
+
+Repositório GitHub: https://github.com/HairanV/Jogo-da-Forca---Java.git
+
